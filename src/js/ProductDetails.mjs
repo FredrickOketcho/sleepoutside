@@ -38,13 +38,24 @@ export default class ProductDetails {
   renderProductDetails() {
     const productDetails = document.getElementById('productDetail');
     const colorName = this.product.Colors?.[0]?.ColorName ?? '';
-    const price = Number(this.product.FinalPrice).toFixed(2);
+    const finalPrice = Number(this.product.FinalPrice);
+    const suggestedRetailPrice = Number(this.product.SuggestedRetailPrice);
+    const price = finalPrice.toFixed(2);
+    const hasDiscount =
+      Number.isFinite(finalPrice) &&
+      Number.isFinite(suggestedRetailPrice) &&
+      suggestedRetailPrice > finalPrice;
+    const discountDetails = hasDiscount
+      ? `<p class="product-detail__discount">Save $${(suggestedRetailPrice - finalPrice).toFixed(2)} (${Math.round(((suggestedRetailPrice - finalPrice) / suggestedRetailPrice) * 100)}% off)</p>
+        <p class="product-detail__original-price">Was <s>$${suggestedRetailPrice.toFixed(2)}</s></p>`
+      : '';
 
     productDetails.innerHTML = `
       <h3>${this.product.Brand.Name}</h3>
       <h2 class="divider">${this.product.NameWithoutBrand}</h2>
       <img class="divider" src="${this.product.Image}" alt="${this.product.Name}" />
       <p class="product-card__price">$${price}</p>
+      ${discountDetails}
       <p class="product__color">${colorName}</p>
       <p class="product__description">${this.product.DescriptionHtmlSimple}</p>
       <div class="product-detail__add">
