@@ -1,3 +1,5 @@
+import tents from '../json/tents.json';
+
 function convertToJson(response) {
   if (!response.ok) {
     throw new Error(`Request failed with status ${response.status}`);
@@ -5,17 +7,23 @@ function convertToJson(response) {
   return response.json();
 }
 
+const productData = { tents };
+
 export default class ExternalServices {
   constructor(category) {
     this.category = category;
-    this.path = category ? `../json/${this.category}.json` : null;
   }
 
   getData() {
-    if (!this.path) {
-      throw new Error('A product category is required to fetch products.');
+    const products = productData[this.category];
+
+    if (!products) {
+      throw new Error(
+        `No product data is available for category "${this.category}".`,
+      );
     }
-    return fetch(this.path).then(convertToJson);
+
+    return Promise.resolve(products);
   }
 
   async findProductById(id) {
