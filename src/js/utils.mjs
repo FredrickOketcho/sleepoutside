@@ -2,6 +2,11 @@
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
+
+export function getParam(param) {
+  return new URLSearchParams(window.location.search).get(param);
+}
+
 // or a more concise version if you are into that sort of thing:
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
 
