@@ -1,5 +1,11 @@
 import tents from '../json/tents.json';
 
+const productImages = import.meta.glob('../images/**/*.{jpg,svg}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+
 function convertToJson(response) {
   if (!response.ok) {
     throw new Error(`Request failed with status ${response.status}`);
@@ -23,7 +29,12 @@ export default class ExternalServices {
       );
     }
 
-    return Promise.resolve(products);
+    return Promise.resolve(
+      products.map((product) => ({
+        ...product,
+        Image: productImages[product.Image] ?? product.Image,
+      })),
+    );
   }
 
   async findProductById(id) {

@@ -7,6 +7,21 @@ export function getParam(param) {
   return new URLSearchParams(window.location.search).get(param);
 }
 
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = 'afterbegin',
+  clear = false,
+) {
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+
+  const html = list.map(templateFn).join('');
+  parentElement.insertAdjacentHTML(position, html);
+}
+
 // or a more concise version if you are into that sort of thing:
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
 
