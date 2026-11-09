@@ -1,10 +1,4 @@
-import tents from '../json/tents.json';
-
-const productImages = import.meta.glob('../images/**/*.{jpg,svg}', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-});
+const API_BASE = 'https://wdd330-backend-osp8.onrender.com';
 
 function convertToJson(response) {
   if (!response.ok) {
@@ -13,37 +7,55 @@ function convertToJson(response) {
   return response.json();
 }
 
-const productData = { tents };
+function normalizeProduct(product) {
+  return {
+    ...product,
+    Image:
+      product.Images?.PrimaryMedium ??
+      product.Images?.PrimarySmall ??
+      product.Image,
+  };
+}
 
 export default class ExternalServices {
   constructor(category) {
     this.category = category;
   }
 
-  getData() {
-    const products = productData[this.category];
-
-    if (!products) {
-      throw new Error(
-        `No product data is available for category "${this.category}".`,
-      );
+  async getData() {
+    if (!this.category) {
+      throw new Error('A product category is required to search products.');
     }
 
-    return Promise.resolve(
-      products.map((product) => ({
-        ...product,
-        Image: productImages[product.Image] ?? product.Image,
-      })),
+    const response = await fetch(
+      `${API_BASE}/products/search/${encodeURIComponent(this.category)}`,
     );
+    const data = await convertToJson(response);
+    if (!Array.isArray(data.Result)) {
+      throw new Error(`The product search for "${this.category}" was invalid.`);
+    }
+
+    return data.Result.map(normalizeProduct);
   }
 
   async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
+    if (!id) {
+      throw new Error('A product id is required to load product details.');
+    }
+
+    const response = await fetch(
+      `${API_BASE}/product/${encodeURIComponent(id)}`,
+    );
+    const data = await convertToJson(response);
+    if (!data.Result || typeof data.Result !== 'object') {
+      throw new Error(`The product details for "${id}" were invalid.`);
+    }
+
+    return normalizeProduct(data.Result);
   }
 
   checkout(payload) {
-    return fetch('https://wdd330-backend-osp8.onrender.com/checkout', {
+    return fetch(`${API_BASE}/checkout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

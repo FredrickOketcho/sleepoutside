@@ -1,7 +1,7 @@
 import { renderListWithTemplate } from './utils.mjs';
 
 function productCardTemplate(product) {
-  const productUrl = `product_pages/index.html?product=${encodeURIComponent(product.Id)}`;
+  const productUrl = `/product_pages/index.html?product=${encodeURIComponent(product.Id)}`;
   const price = Number(product.FinalPrice).toFixed(2);
 
   return `<li class="product-card">

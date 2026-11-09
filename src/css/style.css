@@ -168,6 +168,41 @@ button {
   color: var(--dark-grey);
 }
 
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.category-card {
+  display: block;
+  height: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--light-grey);
+  color: var(--dark-grey);
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.category-card:hover,
+.category-card:focus-visible {
+  background-color: #fff6ed;
+  transform: translateY(-2px);
+}
+
+.category-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+}
+
+.category-card p {
+  padding: 0;
+}
+
 /* Styles for product lists */
 .product-card {
   flex: 1 1 45%;
