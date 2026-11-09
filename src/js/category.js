@@ -16,10 +16,10 @@ const status = document.querySelector('#productListStatus');
 const list = document.querySelector('.product-list');
 
 if (!categories[category]) {
-  title.textContent = 'Products';
+  title.textContent = 'Top Products';
   status.textContent = 'Choose a valid product category.';
 } else {
-  title.textContent = categories[category];
+  title.textContent = `Top Products: ${categories[category]}`;
   const productList = new ProductList(
     category,
     new ExternalServices(category),
