@@ -2,14 +2,24 @@ import { renderListWithTemplate } from './utils.mjs';
 
 function productCardTemplate(product) {
   const productUrl = `/product_pages/index.html?product=${encodeURIComponent(product.Id)}`;
-  const price = Number(product.FinalPrice).toFixed(2);
+  const finalPrice = Number(product.FinalPrice);
+  const suggestedRetailPrice = Number(product.SuggestedRetailPrice);
+  const hasDiscount =
+    Number.isFinite(finalPrice) &&
+    Number.isFinite(suggestedRetailPrice) &&
+    suggestedRetailPrice > finalPrice;
+  const discountDetails = hasDiscount
+    ? `<p class="product-card__discount">${Math.round(((suggestedRetailPrice - finalPrice) / suggestedRetailPrice) * 100)}% off</p>
+      <p class="product-card__original-price">Was <s>$${suggestedRetailPrice.toFixed(2)}</s></p>`
+    : '';
 
   return `<li class="product-card">
     <a href="${productUrl}">
       <img src="${product.Image}" alt="${product.Name}" />
       <h3 class="card__brand">${product.Brand.Name}</h3>
       <h2 class="card__name">${product.NameWithoutBrand}</h2>
-      <p class="product-card__price">$${price}</p>
+      <p class="product-card__price">$${finalPrice.toFixed(2)}</p>
+      ${discountDetails}
     </a>
   </li>`;
 }
