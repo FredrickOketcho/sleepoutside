@@ -199,6 +199,14 @@ button {
   color: var(--secondary-color);
 }
 
+.category-card img {
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 0.75rem;
+  object-fit: contain;
+}
+
 .category-card p {
   padding: 0;
 }
