@@ -28,9 +28,9 @@ form.addEventListener('submit', async (event) => {
   try {
     await checkout.checkout(form);
     localStorage.removeItem('so-cart');
-    message.textContent = 'Your order was submitted successfully.';
+    window.location.href = './success.html';
   } catch (error) {
-    message.textContent = `Unable to submit your order: ${error.message}`;
+    message.textContent = 'Please review the error message and try again.';
     submitButton.disabled = false;
   }
 });

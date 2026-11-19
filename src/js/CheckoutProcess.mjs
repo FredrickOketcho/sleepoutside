@@ -1,4 +1,4 @@
-import { getLocalStorage } from './utils.mjs';
+import { alertMessage, getLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 
 function formDataToJSON(formElement) {
@@ -102,13 +102,21 @@ export default class CheckoutProcess {
   }
 
   async checkout(form) {
-    const order = formDataToJSON(form);
-    order.orderDate = new Date().toISOString();
-    order.items = packageItems(this.list);
-    order.orderTotal = this.orderTotal.toFixed(2);
-    order.shipping = this.shipping;
-    order.tax = this.tax.toFixed(2);
+    try {
+      const order = formDataToJSON(form);
+      order.orderDate = new Date().toISOString();
+      order.items = packageItems(this.list);
+      order.orderTotal = this.orderTotal.toFixed(2);
+      order.shipping = this.shipping;
+      order.tax = this.tax.toFixed(2);
 
-    return this.services.checkout(order);
+      return await this.services.checkout(order);
+    } catch (error) {
+      const detail = error?.message ?? error;
+      const message =
+        typeof detail === 'string' ? detail : JSON.stringify(detail, null, 2);
+      alertMessage(`We could not submit your order. ${message}`);
+      throw new Error(message);
+    }
   }
 }

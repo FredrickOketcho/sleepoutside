@@ -1,10 +1,21 @@
 const API_BASE = 'https://wdd330-backend-osp8.onrender.com';
 
-function convertToJson(response) {
-  if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
+async function convertToJson(response) {
+  let jsonResponse;
+  try {
+    jsonResponse = await response.json();
+  } catch {
+    jsonResponse = { message: `Request failed with status ${response.status}.` };
   }
-  return response.json();
+
+  if (!response.ok) {
+    throw {
+      name: 'servicesError',
+      message: jsonResponse,
+    };
+  }
+
+  return jsonResponse;
 }
 
 function normalizeProduct(product) {
@@ -36,6 +47,35 @@ export default class ExternalServices {
     }
 
     return data.Result.map(normalizeProduct);
+  }
+
+  async searchProducts(query) {
+    const searchTerm = query.trim().toLocaleLowerCase();
+    if (!searchTerm) return [];
+
+    const categories = ['tents', 'backpacks', 'sleeping-bags', 'hammocks'];
+    const categoryResults = await Promise.all(
+      categories.map((category) => new ExternalServices(category).getData()),
+    );
+    const uniqueProducts = new Map();
+
+    categoryResults.flat().forEach((product) => {
+      uniqueProducts.set(product.Id, product);
+    });
+
+    return [...uniqueProducts.values()].filter((product) => {
+      const searchableText = [
+        product.Name,
+        product.NameWithoutBrand,
+        product.Brand?.Name,
+        product.DescriptionHtmlSimple,
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLocaleLowerCase();
+
+      return searchableText.includes(searchTerm);
+    });
   }
 
   async findProductById(id) {

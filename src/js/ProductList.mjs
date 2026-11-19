@@ -25,16 +25,19 @@ function productCardTemplate(product) {
 }
 
 export default class ProductList {
-  constructor(category, dataSource, listElement) {
+  constructor(category, dataSource, listElement, searchQuery = '') {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.searchQuery = searchQuery;
     this.statusElement = document.getElementById('productListStatus');
   }
 
   async init() {
     try {
-      const products = await this.dataSource.getData();
+      const products = this.searchQuery
+        ? await this.dataSource.searchProducts(this.searchQuery)
+        : await this.dataSource.getData();
       const availableIds = this.listElement.dataset.productIds
         ?.split(',')
         .map((id) => id.trim());
@@ -45,9 +48,16 @@ export default class ProductList {
       this.renderList(displayProducts);
       this.statusElement.textContent = displayProducts.length
         ? ''
-        : 'No products are available right now.';
+        : this.searchQuery
+          ? `No products found for “${this.searchQuery}”.`
+          : 'No products are available right now.';
     } catch (error) {
-      console.error(`Unable to load ${this.category} products.`, error);
+      console.error(
+        this.searchQuery
+          ? `Unable to search for "${this.searchQuery}".`
+          : `Unable to load ${this.category} products.`,
+        error,
+      );
       this.statusElement.textContent =
         'We could not load products. Please try again later.';
     }

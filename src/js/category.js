@@ -11,11 +11,22 @@ const categories = {
   hammocks: 'Hammocks',
 };
 const category = getParam('category');
+const searchQuery = (getParam('q') ?? '').trim();
 const title = document.querySelector('#category-title');
 const status = document.querySelector('#productListStatus');
 const list = document.querySelector('.product-list');
 
-if (!categories[category]) {
+if (searchQuery) {
+  title.textContent = `Search results for “${searchQuery}”`;
+  document.querySelector('.products > p:first-child').hidden = true;
+  const productList = new ProductList(
+    '',
+    new ExternalServices(),
+    list,
+    searchQuery,
+  );
+  productList.init();
+} else if (!categories[category]) {
   title.textContent = 'Top Products';
   status.textContent = 'Choose a valid product category.';
 } else {

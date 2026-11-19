@@ -78,3 +78,22 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener('click', callback);
 }
+
+export function alertMessage(message, scroll = true) {
+  const main = qs('main');
+  if (!main) return;
+
+  qs('.alert-message', main)?.remove();
+
+  const alert = document.createElement('div');
+  alert.className = 'alert-message';
+  alert.setAttribute('role', 'alert');
+  alert.setAttribute('aria-live', 'assertive');
+  alert.textContent =
+    typeof message === 'string' ? message : JSON.stringify(message, null, 2);
+  main.prepend(alert);
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
