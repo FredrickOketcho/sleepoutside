@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/site.css">
   <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script type="module" src="scripts/home.js"></script>
   <script type="module" src="scripts/site.js"></script>
 </head>
@@ -48,6 +49,58 @@
       </div>
       <p class="hero-caption">Kampala to Entebbe Expressway</p>
     </section>
+    <section class="section nearby-explorer" aria-labelledby="nearby-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">Find a place to board</p><h2 id="nearby-title">Nearby stops and stages</h2></div>
+        <p class="map-note">Search a place to see nearby transit stops and local taxi stages.</p>
+      </div>
+      <form id="location-search-form" class="location-search">
+        <label class="search-field" for="location-search"><span class="sr-only">Search for a place</span><span aria-hidden="true">&#9906;</span><input id="location-search" name="place" type="search" placeholder="Search a place or neighborhood" autocomplete="off" minlength="2" required></label>
+        <label class="select-field" for="nearby-radius"><span>Search radius</span><select id="nearby-radius" name="radius"><option value="500">500 m</option><option value="1000" selected>1 km</option><option value="2000">2 km</option><option value="5000">5 km</option></select></label>
+        <button class="button button-dark" type="submit">Search map</button>
+      </form>
+      <p class="search-privacy-note">Place searches are sent to OpenStreetMap’s Nominatim service. Do not search for private or sensitive addresses.</p>
+      <div class="recent-searches" id="recent-searches" aria-label="Recent searches"></div>
+      <p class="results-note" id="map-status" role="status" aria-live="polite">Map centered on Kampala. Search a place to find nearby stops.</p>
+      <div class="map-layout">
+        <div id="transit-map" class="transit-map" role="region" aria-label="Interactive map of nearby transit stops and stages"></div>
+        <div class="map-results">
+          <div class="explorer-tabs" role="group" aria-label="Map results">
+            <button class="filter-button is-active" type="button" data-map-panel="nearby" aria-pressed="true">Nearby</button>
+            <button class="filter-button" type="button" data-map-panel="saved" aria-pressed="false">Saved places</button>
+          </div>
+          <section id="nearby-panel" aria-label="Nearby stops and local stages">
+            <h3 id="nearby-results-title">Nearby stops</h3>
+            <div id="nearby-results" class="stop-list"></div>
+            <label class="select-field stage-search" for="local-stage-search"><span>Search local taxi stages</span><input id="local-stage-search" type="search" placeholder="Stage or destination" autocomplete="off"></label>
+            <div id="curated-stages" class="stop-list"></div>
+          </section>
+          <section id="saved-panel" aria-label="Saved routes and stages" hidden>
+            <h3>Saved routes</h3>
+            <div id="saved-routes" class="stop-list"></div>
+            <h3>Saved stages</h3>
+            <div id="saved-stages" class="stop-list"></div>
+          </section>
+          <section id="stop-details" class="stop-details" aria-live="polite" aria-label="Selected stop details">
+            <h3>Stop details</h3>
+            <p>Select a map marker or stage to see its details.</p>
+          </section>
+        </div>
+      </div>
+      <details class="api-settings">
+        <summary>Transit data settings</summary>
+        <p>Transitland requires an API key. Add a restricted key to load nearby feed stops. It stays in this browser and is sent with public browser requests; use a key restricted for this project.</p>
+        <form id="transit-key-form" class="key-form">
+          <label for="transitland-key">Transitland API key</label>
+          <input id="transitland-key" type="password" autocomplete="off" spellcheck="false">
+          <button class="button button-dark" type="submit">Save key</button>
+          <button class="button button-outline key-clear" id="clear-transitland-key" type="button">Clear key</button>
+          <p id="key-status" class="privacy-note" role="status" aria-live="polite"></p>
+        </form>
+        <a href="https://www.transit.land/documentation/rest-api" target="_blank" rel="noopener noreferrer">Transitland API documentation</a>
+      </details>
+      <p class="map-attribution">Map tiles and place search: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>. Transit stop data: <a href="https://www.transit.land/" target="_blank" rel="noopener noreferrer">Transitland</a>. Local taxi route data is an indicative community dataset.</p>
+    </section>
     <section class="section route-explorer" aria-labelledby="explore-title">
       <div class="section-heading">
         <div><p class="eyebrow">Find a journey</p><h2 id="explore-title">Routes at a glance</h2></div>
@@ -75,7 +128,7 @@
       </div>
       <figure class="promo-image"><img src="images/peak-transit.jpg" alt="Busy Kampala traffic during the evening commute" width="920" height="460" loading="lazy"><figcaption>Busy roads can affect journey times and fares.</figcaption></figure>
     </section>
-    <p class="fare-disclaimer">Fares shown are project estimates for learning purposes, not official operator prices. Confirm the current fare and departure point before travelling.</p>
+    <p class="fare-disclaimer">Fare ranges and route distances are indicative community estimates, not an official price list. Peak and luggage adjustments are planning assumptions. Confirm current fares and boarding points locally.</p>
   </main>
   <dialog class="route-dialog" id="route-dialog" aria-labelledby="dialog-title">
     <div class="dialog-content">
@@ -95,10 +148,12 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <a class="footer-brand" href="index.html">Kampala <strong>Fare Guide</strong></a>
-      <p>Independent student project by Fredrick Oketcho<br>WDD 330 | Kampala, Uganda</p>
+      <p>Independent transit directory project by Fredrick Oketcho<br>Kampala, Uganda</p>
       <nav aria-label="Footer navigation"><a href="routes.html">Route directory</a><a href="fare.html">Fare request</a><a href="attributions.html">Attributions</a></nav>
       <p class="footer-note"><a href="https://www.loom.com/share/0c82bb713053473e8c83a8f7836115d1" target="_blank" rel="noopener noreferrer">Video demonstration</a></p>
     </div>
   </footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="module" src="scripts/map-explorer.js"></script>
 </body>
 </html>

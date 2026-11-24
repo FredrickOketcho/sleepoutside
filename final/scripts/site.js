@@ -59,3 +59,17 @@ if (navigation) {
   label.append(select);
   headerInner.append(label);
 }
+
+const footerInner = document.querySelector('.footer-inner');
+if (footerInner && !footerInner.querySelector('.data-attribution')) {
+  const attribution = document.createElement('p');
+  attribution.className = 'data-attribution';
+  attribution.append('Place search and map data © ');
+  const osmLink = document.createElement('a');
+  osmLink.href = 'https://www.openstreetmap.org/copyright';
+  osmLink.target = '_blank';
+  osmLink.rel = 'noopener noreferrer';
+  osmLink.textContent = 'OpenStreetMap contributors';
+  attribution.append(osmLink, '. Transit stop listings via Transitland.');
+  footerInner.append(attribution);
+}

@@ -1,0 +1,325 @@
+[
+  {
+    "id": "old-taxi-park",
+    "name": "Old Taxi Park",
+    "locationQuery": "Old Taxi Park, Kampala, Uganda",
+    "routeIds": [
+      "city-ntinda",
+      "city-kireka",
+      "city-bukoto",
+      "city-najjera",
+      "city-kajjansi"
+    ]
+  },
+  {
+    "id": "wandegeya",
+    "name": "Wandegeya",
+    "locationQuery": "Wandegeya, Kampala, Uganda",
+    "routeIds": [
+      "city-ntinda",
+      "city-bukoto"
+    ]
+  },
+  {
+    "id": "kamwokya",
+    "name": "Kamwokya",
+    "locationQuery": "Kamwokya, Kampala, Uganda",
+    "routeIds": [
+      "city-ntinda",
+      "city-bukoto"
+    ]
+  },
+  {
+    "id": "ntinda",
+    "name": "Ntinda",
+    "locationQuery": "Ntinda, Kampala, Uganda",
+    "routeIds": [
+      "city-ntinda",
+      "city-najjera"
+    ]
+  },
+  {
+    "id": "new-taxi-park",
+    "name": "New Taxi Park",
+    "locationQuery": "New Taxi Park, Kampala, Uganda",
+    "routeIds": [
+      "city-kawempe",
+      "city-makindye",
+      "city-nansana"
+    ]
+  },
+  {
+    "id": "bwaise",
+    "name": "Bwaise",
+    "locationQuery": "Bwaise, Kampala, Uganda",
+    "routeIds": [
+      "city-kawempe",
+      "city-nansana"
+    ]
+  },
+  {
+    "id": "kawempe",
+    "name": "Kawempe",
+    "locationQuery": "Kawempe, Kampala, Uganda",
+    "routeIds": [
+      "city-kawempe"
+    ]
+  },
+  {
+    "id": "nakawa",
+    "name": "Nakawa",
+    "locationQuery": "Nakawa, Kampala, Uganda",
+    "routeIds": [
+      "city-kireka"
+    ]
+  },
+  {
+    "id": "bugolobi",
+    "name": "Bugolobi",
+    "locationQuery": "Bugolobi, Kampala, Uganda",
+    "routeIds": [
+      "city-kireka"
+    ]
+  },
+  {
+    "id": "kireka",
+    "name": "Kireka",
+    "locationQuery": "Kireka, Kampala, Uganda",
+    "routeIds": [
+      "city-kireka",
+      "city-mukono-express"
+    ]
+  },
+  {
+    "id": "bukoto",
+    "name": "Bukoto",
+    "locationQuery": "Bukoto, Kampala, Uganda",
+    "routeIds": [
+      "city-bukoto"
+    ]
+  },
+  {
+    "id": "nsambya",
+    "name": "Nsambya",
+    "locationQuery": "Nsambya, Kampala, Uganda",
+    "routeIds": [
+      "city-makindye"
+    ]
+  },
+  {
+    "id": "makindye",
+    "name": "Makindye",
+    "locationQuery": "Makindye, Kampala, Uganda",
+    "routeIds": [
+      "city-makindye"
+    ]
+  },
+  {
+    "id": "kiwatule",
+    "name": "Kiwatule",
+    "locationQuery": "Kiwatule, Kampala, Uganda",
+    "routeIds": [
+      "city-najjera"
+    ]
+  },
+  {
+    "id": "najjera",
+    "name": "Najjera",
+    "locationQuery": "Najjera, Kampala, Uganda",
+    "routeIds": [
+      "city-najjera"
+    ]
+  },
+  {
+    "id": "nansana",
+    "name": "Nansana",
+    "locationQuery": "Nansana, Kampala, Uganda",
+    "routeIds": [
+      "city-nansana"
+    ]
+  },
+  {
+    "id": "kibuye",
+    "name": "Kibuye",
+    "locationQuery": "Kibuye, Kampala, Uganda",
+    "routeIds": [
+      "city-kajjansi"
+    ]
+  },
+  {
+    "id": "zana",
+    "name": "Zana",
+    "locationQuery": "Zana, Kampala, Uganda",
+    "routeIds": [
+      "city-kajjansi"
+    ]
+  },
+  {
+    "id": "kajjansi",
+    "name": "Kajjansi",
+    "locationQuery": "Kajjansi, Kampala, Uganda",
+    "routeIds": [
+      "city-kajjansi"
+    ]
+  },
+  {
+    "id": "kampala",
+    "name": "Kampala",
+    "locationQuery": "Kampala, Kampala, Uganda",
+    "routeIds": [
+      "city-entebbe-express",
+      "city-jinja-express",
+      "city-mukono-express",
+      "city-masaka-express",
+      "city-mbarara-express",
+      "city-fortportal-express",
+      "city-gulu-express"
+    ]
+  },
+  {
+    "id": "kajansi",
+    "name": "Kajansi",
+    "locationQuery": "Kajansi, Kampala, Uganda",
+    "routeIds": [
+      "city-entebbe-express"
+    ]
+  },
+  {
+    "id": "abayita-ababiri",
+    "name": "Abayita Ababiri",
+    "locationQuery": "Abayita Ababiri, Kampala, Uganda",
+    "routeIds": [
+      "city-entebbe-express"
+    ]
+  },
+  {
+    "id": "entebbe",
+    "name": "Entebbe",
+    "locationQuery": "Entebbe, Kampala, Uganda",
+    "routeIds": [
+      "city-entebbe-express"
+    ]
+  },
+  {
+    "id": "mukono",
+    "name": "Mukono",
+    "locationQuery": "Mukono, Kampala, Uganda",
+    "routeIds": [
+      "city-jinja-express",
+      "city-mukono-express"
+    ]
+  },
+  {
+    "id": "lugazi",
+    "name": "Lugazi",
+    "locationQuery": "Lugazi, Kampala, Uganda",
+    "routeIds": [
+      "city-jinja-express"
+    ]
+  },
+  {
+    "id": "jinja",
+    "name": "Jinja",
+    "locationQuery": "Jinja, Kampala, Uganda",
+    "routeIds": [
+      "city-jinja-express"
+    ]
+  },
+  {
+    "id": "seeta",
+    "name": "Seeta",
+    "locationQuery": "Seeta, Kampala, Uganda",
+    "routeIds": [
+      "city-mukono-express"
+    ]
+  },
+  {
+    "id": "mpigi",
+    "name": "Mpigi",
+    "locationQuery": "Mpigi, Kampala, Uganda",
+    "routeIds": [
+      "city-masaka-express",
+      "city-mbarara-express"
+    ]
+  },
+  {
+    "id": "lukaya",
+    "name": "Lukaya",
+    "locationQuery": "Lukaya, Kampala, Uganda",
+    "routeIds": [
+      "city-masaka-express"
+    ]
+  },
+  {
+    "id": "masaka",
+    "name": "Masaka",
+    "locationQuery": "Masaka, Kampala, Uganda",
+    "routeIds": [
+      "city-masaka-express"
+    ]
+  },
+  {
+    "id": "lyantonde",
+    "name": "Lyantonde",
+    "locationQuery": "Lyantonde, Kampala, Uganda",
+    "routeIds": [
+      "city-mbarara-express"
+    ]
+  },
+  {
+    "id": "mbarara",
+    "name": "Mbarara",
+    "locationQuery": "Mbarara, Kampala, Uganda",
+    "routeIds": [
+      "city-mbarara-express"
+    ]
+  },
+  {
+    "id": "mityana",
+    "name": "Mityana",
+    "locationQuery": "Mityana, Kampala, Uganda",
+    "routeIds": [
+      "city-fortportal-express"
+    ]
+  },
+  {
+    "id": "kyegegwa",
+    "name": "Kyegegwa",
+    "locationQuery": "Kyegegwa, Kampala, Uganda",
+    "routeIds": [
+      "city-fortportal-express"
+    ]
+  },
+  {
+    "id": "fort-portal",
+    "name": "Fort Portal",
+    "locationQuery": "Fort Portal, Kampala, Uganda",
+    "routeIds": [
+      "city-fortportal-express"
+    ]
+  },
+  {
+    "id": "luwero",
+    "name": "Luwero",
+    "locationQuery": "Luwero, Kampala, Uganda",
+    "routeIds": [
+      "city-gulu-express"
+    ]
+  },
+  {
+    "id": "nakasongola",
+    "name": "Nakasongola",
+    "locationQuery": "Nakasongola, Kampala, Uganda",
+    "routeIds": [
+      "city-gulu-express"
+    ]
+  },
+  {
+    "id": "gulu",
+    "name": "Gulu",
+    "locationQuery": "Gulu, Kampala, Uganda",
+    "routeIds": [
+      "city-gulu-express"
+    ]
+  }
+]

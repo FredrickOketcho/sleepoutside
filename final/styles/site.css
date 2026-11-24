@@ -269,3 +269,269 @@ body,
     max-width: 8.5rem;
   }
 }
+
+.nearby-explorer {
+  padding: 64px 0;
+}
+
+.map-note {
+  max-width: 23rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.search-privacy-note {
+  margin: 0.35rem 0 0.6rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.location-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.location-search .search-field {
+  flex: 1 1 18rem;
+}
+
+.location-search .select-field select,
+.stage-search input,
+.location-candidates {
+  min-height: 46px;
+  padding: 0.55rem;
+  border: 1px solid var(--line);
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+
+.location-search > button {
+  margin: 0;
+}
+
+.recent-searches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.recent-search {
+  min-height: 2.75rem;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--theme-surface);
+  color: var(--theme-text);
+  cursor: pointer;
+}
+
+.map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.transit-map {
+  min-height: 28rem;
+  border: 1px solid var(--line);
+  background: var(--theme-surface);
+  z-index: 0;
+}
+
+.map-results {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+
+.explorer-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-button {
+  min-height: 44px;
+}
+
+.details-button,
+.favorite-button {
+  min-height: 44px;
+}
+
+.map-results h3 {
+  margin: 0.75rem 0;
+  font-size: 1rem;
+}
+
+.stop-list {
+  display: grid;
+  gap: 0.5rem;
+  max-height: 16rem;
+  overflow: auto;
+  margin: 0.5rem 0 1rem;
+}
+
+.stop-result {
+  display: grid;
+  gap: 0.15rem;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--line);
+  background: var(--theme-bg);
+  color: var(--theme-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.stop-result:hover {
+  border-color: var(--theme-text);
+}
+
+.stop-result span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.stage-search {
+  margin-top: 1rem;
+}
+
+.stage-search input {
+  width: 100%;
+}
+
+.stop-details {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-top: 1px solid var(--line);
+  color: var(--theme-text);
+}
+
+.stop-details h3 {
+  margin: 0.25rem 0 0.5rem;
+}
+
+.stop-details p {
+  margin: 0.35rem 0;
+  overflow-wrap: anywhere;
+  font-size: 0.8rem;
+}
+
+.stop-details .button {
+  margin-top: 0.65rem;
+}
+
+.api-settings {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+  color: var(--theme-text);
+  font-size: 0.8rem;
+}
+
+.api-settings summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.api-settings > p,
+.api-settings > a {
+  color: var(--muted);
+}
+
+.key-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.65rem;
+  margin: 0.75rem 0;
+}
+
+.key-form label {
+  display: grid;
+  flex: 1 1 100%;
+  gap: 0.3rem;
+  font-weight: 700;
+}
+
+.key-form input {
+  min-height: 2.75rem;
+  padding: 0.55rem;
+  border: 1px solid var(--line);
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+
+.key-form button {
+  margin: 0;
+}
+
+.key-clear {
+  border-color: var(--line);
+  color: var(--theme-text);
+}
+
+.map-attribution {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.data-attribution {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--theme-bg);
+  font-size: 0.7rem;
+}
+
+.data-attribution a {
+  color: inherit;
+}
+
+.fare-modifiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+}
+
+.fare-modifiers legend {
+  padding: 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.fare-modifiers label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+}
+
+.fare-modifiers input {
+  width: 1rem;
+  min-height: 1rem;
+}
+
+@media (max-width: 800px) {
+  .map-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .transit-map {
+    min-height: 22rem;
+  }
+}

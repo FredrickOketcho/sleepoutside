@@ -4,7 +4,7 @@ const parameters = new URLSearchParams(window.location.search);
 const submittedName = document.querySelector('#submitted-name');
 const details = document.querySelector('#submitted-details');
 const emptyMessage = document.querySelector('#empty-submission');
-const fields = [['Email', 'email'], ['Route', 'route'], ['Passengers', 'passengers'], ['Question or feedback', 'message']];
+const fields = [['Email', 'email'], ['Route', 'route'], ['Passengers', 'passengers'], ['Peak-hour estimate', 'peak'], ['Large luggage estimate', 'luggage'], ['Question or feedback', 'message']];
 const name = parameters.get('name')?.trim();
 
 function addDetail(label, value) {
