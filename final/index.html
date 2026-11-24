@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-theme="off-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Kampala taxi and express routes, compare estimated fares, and save useful journeys.">
+  <meta name="author" content="Fredrick Oketcho">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kampala Fare Guide | Local Transport Explorer">
+  <meta property="og:description" content="Find Kampala taxi and express routes and compare indicative fares.">
+  <title>Kampala Fare Guide | Local Transport Explorer</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/site.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <script type="module" src="scripts/home.js"></script>
+  <script type="module" src="scripts/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Kampala Fare Guide home">
+        <img src="images/favicon.png" alt="" width="38" height="38">
+        <span>Kampala <strong>Fare Guide</strong></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
+      <nav class="primary-navigation" id="primary-navigation" aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Explore</a>
+        <a href="routes.html">All routes</a>
+        <a href="fare.html">Fare request</a>
+        <a href="account.html">Account</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content">
+    <section class="hero home-hero" aria-labelledby="page-title">
+      <img class="hero-image" src="images/express-route.jpg" alt="Traffic moving along a divided expressway near Kampala" width="712" height="400" fetchpriority="high">
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="eyebrow light-eyebrow">A simpler way around the city</p>
+        <h1 id="page-title">Know your route.<br><span>Know your fare.</span></h1>
+        <p>Explore everyday taxi and express journeys across Kampala, with clear route details and indicative fares in Ugandan shillings.</p>
+        <a class="button button-light" href="routes.html">Browse all routes <span aria-hidden="true">&#8599;</span></a>
+      </div>
+      <p class="hero-caption">Kampala to Entebbe Expressway</p>
+    </section>
+    <section class="section nearby-explorer" aria-labelledby="nearby-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">Find a place to board</p><h2 id="nearby-title">Nearby stops and stages</h2></div>
+        <p class="map-note">Search a place to see nearby transit stops and local taxi stages.</p>
+      </div>
+      <form id="location-search-form" class="location-search">
+        <label class="search-field" for="location-search"><span class="sr-only">Search for a place</span><span aria-hidden="true">&#9906;</span><input id="location-search" name="place" type="search" placeholder="Search a place or neighborhood" autocomplete="off" minlength="2" required></label>
+        <label class="select-field" for="nearby-radius"><span>Search radius</span><select id="nearby-radius" name="radius"><option value="500">500 m</option><option value="1000" selected>1 km</option><option value="2000">2 km</option><option value="5000">5 km</option></select></label>
+        <button class="button button-dark" type="submit">Search map</button>
+      </form>
+      <p class="search-privacy-note">Place searches are sent to OpenStreetMap’s Nominatim service. Do not search for private or sensitive addresses.</p>
+      <div class="recent-searches" id="recent-searches" aria-label="Recent searches"></div>
+      <p class="results-note" id="map-status" role="status" aria-live="polite">Map centered on Kampala. Search a place to find nearby stops.</p>
+      <div class="map-layout">
+        <div id="transit-map" class="transit-map" role="region" aria-label="Interactive map of nearby transit stops and stages"></div>
+        <div class="map-results">
+          <div class="explorer-tabs" role="group" aria-label="Map results">
+            <button class="filter-button is-active" type="button" data-map-panel="nearby" aria-pressed="true">Nearby</button>
+            <button class="filter-button" type="button" data-map-panel="saved" aria-pressed="false">Saved places</button>
+          </div>
+          <section id="nearby-panel" aria-label="Nearby stops and local stages">
+            <h3 id="nearby-results-title">Nearby stops</h3>
+            <div id="nearby-results" class="stop-list"></div>
+            <label class="select-field stage-search" for="local-stage-search"><span>Search local taxi stages</span><input id="local-stage-search" type="search" placeholder="Stage or destination" autocomplete="off"></label>
+            <div id="curated-stages" class="stop-list"></div>
+          </section>
+          <section id="saved-panel" aria-label="Saved routes and stages" hidden>
+            <h3>Saved routes</h3>
+            <div id="saved-routes" class="stop-list"></div>
+            <h3>Saved stages</h3>
+            <div id="saved-stages" class="stop-list"></div>
+          </section>
+          <section id="stop-details" class="stop-details" aria-live="polite" aria-label="Selected stop details">
+            <h3>Stop details</h3>
+            <p>Select a map marker or stage to see its details.</p>
+          </section>
+        </div>
+      </div>
+      <details class="api-settings">
+        <summary>Transit data settings</summary>
+        <p>Transitland requires an API key. Add a restricted key to load nearby feed stops. It stays in this browser and is sent with public browser requests; use a key restricted for this project.</p>
+        <form id="transit-key-form" class="key-form">
+          <label for="transitland-key">Transitland API key</label>
+          <input id="transitland-key" type="password" autocomplete="off" spellcheck="false">
+          <button class="button button-dark" type="submit">Save key</button>
+          <button class="button button-outline key-clear" id="clear-transitland-key" type="button">Clear key</button>
+          <p id="key-status" class="privacy-note" role="status" aria-live="polite"></p>
+        </form>
+        <a href="https://www.transit.land/documentation/rest-api" target="_blank" rel="noopener noreferrer">Transitland API documentation</a>
+      </details>
+      <p class="map-attribution">Map tiles and place search: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>. Transit stop data: <a href="https://www.transit.land/" target="_blank" rel="noopener noreferrer">Transitland</a>. Local taxi route data is an indicative community dataset.</p>
+    </section>
+    <section class="section route-explorer" aria-labelledby="explore-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">Find a journey</p><h2 id="explore-title">Routes at a glance</h2></div>
+        <a class="text-link" href="routes.html">View route directory <span aria-hidden="true">&#8594;</span></a>
+      </div>
+      <div class="route-tools">
+        <label class="search-field" for="route-search"><span class="sr-only">Search routes by place or route name</span><span aria-hidden="true">&#9906;</span><input id="route-search" type="search" placeholder="Search a place or route" autocomplete="off"></label>
+        <div class="filter-controls" role="group" aria-label="Filter routes">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All routes</button>
+          <button class="filter-button" type="button" data-filter="Taxi" aria-pressed="false">Taxi</button>
+          <button class="filter-button" type="button" data-filter="Express" aria-pressed="false">Express</button>
+          <button class="filter-button favorite-filter" type="button" data-filter="favorites" aria-pressed="false">Saved <span aria-hidden="true">&#9733;</span></button>
+        </div>
+      </div>
+      <p class="results-note" id="results-count" aria-live="polite">Loading routes...</p>
+      <div class="route-grid" id="featured-routes" aria-live="polite"></div>
+      <div class="load-error" id="home-error" role="alert" hidden>Routes could not be loaded. Please refresh the page and try again.</div>
+    </section>
+    <section class="fare-promo" aria-labelledby="fare-promo-title">
+      <div class="promo-copy">
+        <p class="eyebrow light-eyebrow">Plan before you board</p>
+        <h2 id="fare-promo-title">A little clarity<br>goes a long way.</h2>
+        <p>Compare route details, check typical operating hours, and send a fare question in one place.</p>
+        <a class="button button-outline" href="fare.html">Estimate a fare <span aria-hidden="true">&#8594;</span></a>
+      </div>
+      <figure class="promo-image"><img src="images/peak-transit.jpg" alt="Busy Kampala traffic during the evening commute" width="920" height="460" loading="lazy"><figcaption>Busy roads can affect journey times and fares.</figcaption></figure>
+    </section>
+    <p class="fare-disclaimer">Fare ranges and route distances are indicative community estimates, not an official price list. Peak and luggage adjustments are planning assumptions. Confirm current fares and boarding points locally.</p>
+  </main>
+  <dialog class="route-dialog" id="route-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-content">
+      <button class="dialog-close" type="button" data-dialog-close aria-label="Close route details">&times;</button>
+      <p class="eyebrow" data-dialog-type></p>
+      <h2 id="dialog-title" data-dialog-title></h2>
+      <p data-dialog-description></p>
+      <dl class="dialog-facts">
+        <div><dt>Indicative fare</dt><dd data-dialog-fare></dd></div>
+        <div><dt>Typical hours</dt><dd data-dialog-hours></dd></div>
+        <div><dt>Peak hours</dt><dd data-dialog-peak></dd></div>
+        <div><dt>Stages</dt><dd data-dialog-stages></dd></div>
+      </dl>
+      <a class="button button-dark" id="route-fare-link" href="fare.html">Ask about this route <span aria-hidden="true">&#8594;</span></a>
+    </div>
+  </dialog>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="footer-brand" href="index.html">Kampala <strong>Fare Guide</strong></a>
+      <p>Independent transit directory project by Fredrick Oketcho<br>Kampala, Uganda<br><a href="mailto:fredrickoketcho5@gmail.co">fredrickoketcho5@gmail.com</a><br><a href="tel:+256701986835">+256 701 986 835</a></p>
+      <nav aria-label="Footer navigation"><a href="routes.html">Route directory</a><a href="fare.html">Fare request</a><a href="attributions.html">Attributions</a><a href="privacy.html">Privacy</a></nav>
+    </div>
+  </footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="module" src="scripts/map-explorer.js"></script>
+</body>
+</html>
