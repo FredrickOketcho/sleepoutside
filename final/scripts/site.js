@@ -61,6 +61,14 @@ if (navigation) {
 }
 
 const footerInner = document.querySelector('.footer-inner');
+const footerNavigation = footerInner?.querySelector('nav[aria-label="Footer navigation"]');
+if (footerNavigation && !footerNavigation.querySelector('a[href="privacy.html"]')) {
+  const privacyLink = document.createElement('a');
+  privacyLink.href = 'privacy.html';
+  privacyLink.textContent = 'Privacy';
+  footerNavigation.append(privacyLink);
+}
+
 if (footerInner && !footerInner.querySelector('.data-attribution')) {
   const attribution = document.createElement('p');
   attribution.className = 'data-attribution';

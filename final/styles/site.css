@@ -484,6 +484,148 @@ body,
   font-size: 0.7rem;
 }
 
+.account-layout {
+  display: grid;
+  justify-items: center;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.account-card {
+  width: min(100%, 34rem);
+  padding: clamp(1.4rem, 5vw, 2.5rem);
+  border: 1px solid var(--line);
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+
+.account-card form,
+.account-session {
+  display: grid;
+  gap: 1rem;
+}
+
+.account-card h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.account-card label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.account-card input {
+  min-height: 2.9rem;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--theme-bg);
+  color: var(--theme-text);
+}
+
+.field-hint,
+.account-privacy {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.account-card .button {
+  width: 100%;
+  margin: 0;
+}
+
+.account-text-button {
+  justify-self: start;
+  min-height: 2.75rem;
+  padding: 0.4rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--theme-text);
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  cursor: pointer;
+}
+
+.account-status,
+.account-privacy {
+  margin: 1rem 0 0;
+}
+
+.account-status[data-kind="error"] {
+  color: var(--theme-text);
+  border-left: 3px solid currentColor;
+  padding-left: 0.65rem;
+}
+
+.account-status[data-kind="success"] {
+  color: var(--theme-text);
+  border-left: 3px solid currentColor;
+  padding-left: 0.65rem;
+}
+
+.setup-message {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border-left: 3px solid var(--theme-text);
+  background: var(--theme-bg);
+  font-size: 0.85rem;
+}
+
+.setup-message p {
+  margin: 0.4rem 0 0;
+}
+
+.setup-message a,
+.account-privacy a,
+.privacy-content a {
+  color: var(--theme-text);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2rem;
+}
+
+.account-session[hidden],
+.account-card [hidden] {
+  display: none;
+}
+
+.account-session > p {
+  margin: 0;
+}
+
+.account-email {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.account-signout {
+  background: transparent;
+  color: var(--theme-text);
+  border-color: var(--line);
+}
+
+.privacy-content {
+  padding-top: 2.5rem;
+}
+
+.privacy-content h2:first-of-type {
+  margin-top: 2rem;
+}
+
+.privacy-content p {
+  line-height: 1.7;
+}
+
+.privacy-date {
+  margin-top: 2rem;
+  font-size: 0.78rem;
+}
+
 .data-attribution {
   grid-column: 1 / -1;
   margin: 0;
