@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: kampala-fare-guide
+    runtime: static
+    rootDir: final
+    buildCommand: echo "No build required"
+    staticPublishPath: .
