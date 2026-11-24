@@ -1,4 +1,4 @@
-import { alertMessage, getLocalStorage } from './utils.mjs';
+import { getLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 
 function formDataToJSON(formElement) {
@@ -34,7 +34,15 @@ export default class CheckoutProcess {
   }
 
   init() {
-    const storedItems = getLocalStorage(this.key);
+    let storedItems;
+    try {
+      storedItems = getLocalStorage(this.key);
+    } catch {
+      document.querySelector('#checkout-message').textContent =
+        'Your cart data could not be read. Please return to your cart and try again.';
+      document.querySelector('#checkout-submit').disabled = true;
+      return;
+    }
     this.list = Array.isArray(storedItems)
       ? storedItems
       : storedItems
@@ -46,15 +54,27 @@ export default class CheckoutProcess {
       document.querySelector('#checkout-message').textContent =
         'Your cart is empty. Add an item before checking out.';
       document.querySelector('#checkout-submit').disabled = true;
+    } else if (!this.list.every((item) => this.isValidCartItem(item))) {
+      document.querySelector('#checkout-message').textContent =
+        'Your cart contains an invalid item. Please remove it and try again.';
+      document.querySelector('#checkout-submit').disabled = true;
     }
   }
 
+  isValidCartItem(item) {
+    const price = Number(item?.FinalPrice);
+    const quantity = Number(item?.quantity) || 1;
+    return Boolean(item?.Id) && Number.isFinite(price) && price >= 0 &&
+      Number.isInteger(quantity) && quantity > 0;
+  }
+
   calculateItemSubTotal() {
-    const itemCount = this.list.reduce(
+    const validItems = this.list.filter((item) => this.isValidCartItem(item));
+    const itemCount = validItems.reduce(
       (count, item) => count + (Number(item.quantity) || 1),
       0,
     );
-    this.itemTotal = this.list.reduce(
+    this.itemTotal = validItems.reduce(
       (total, item) =>
         total + Number(item.FinalPrice) * (Number(item.quantity) || 1),
       0,
@@ -102,20 +122,27 @@ export default class CheckoutProcess {
   }
 
   async checkout(form) {
-    try {
-      const order = formDataToJSON(form);
-      order.orderDate = new Date().toISOString();
-      order.items = packageItems(this.list);
-      order.orderTotal = this.orderTotal.toFixed(2);
-      order.shipping = this.shipping;
-      order.tax = this.tax.toFixed(2);
+    if (!this.list.length || !this.list.every((item) => this.isValidCartItem(item))) {
+      throw new Error('Your cart is empty or contains invalid items.');
+    }
+    if (!Number.isFinite(this.orderTotal) || this.orderTotal <= 0) {
+      throw new Error('The order total is invalid. Please review your cart.');
+    }
 
+    const order = formDataToJSON(form);
+    order.orderDate = new Date().toISOString();
+    order.items = packageItems(this.list);
+    order.orderTotal = this.orderTotal.toFixed(2);
+    order.shipping = this.shipping;
+    order.tax = this.tax.toFixed(2);
+
+    try {
       return await this.services.checkout(order);
     } catch (error) {
       const detail = error?.message ?? error;
-      const message =
-        typeof detail === 'string' ? detail : JSON.stringify(detail, null, 2);
-      alertMessage(`We could not submit your order. ${message}`);
+      const message = typeof detail === 'string'
+        ? detail
+        : detail?.message || detail?.error || JSON.stringify(detail);
       throw new Error(message);
     }
   }

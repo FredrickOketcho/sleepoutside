@@ -1,13 +1,19 @@
 import { getCartItems, renderListWithTemplate } from './utils.mjs';
 
 function cartItemTemplate(item) {
-  const productUrl = `../product_pages/index.html?product=${encodeURIComponent(item.Id)}`;
+  const productQuery = new URLSearchParams({ product: item.Id });
+  if (item.Category) productQuery.set('category', item.Category);
+  const productUrl = `../product_pages/index.html?${productQuery.toString()}`;
   const quantity = Number(item.quantity) || 1;
   const price = Number(item.FinalPrice);
 
   return `<li class="cart-card divider">
   <a href="${productUrl}" class="cart-card__image">
-    <img src="${item.Image}" alt="${item.Name}" />
+    <img
+      src="${item.Image}"
+      ${item.ImageSrcSet ? `srcset="${item.ImageSrcSet}" sizes="(max-width: 500px) 20vw, 100px"` : ''}
+      alt="${item.Name}"
+    />
   </a>
   <a href="${productUrl}">
     <h2 class="card__name">${item.Name}</h2>

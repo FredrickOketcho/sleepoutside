@@ -1,0 +1,49 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #23332d;
+  background: #edf2eb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem 1rem;
+  background: radial-gradient(ellipse at top, rgb(255 255 255 / 90%), transparent 55%), #edf2eb;
+}
+
+.lesson {
+  width: min(100%, 44rem);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 6vw, 3rem);
+  border: 1px solid #d5dfd3;
+  border-radius: 1.25rem;
+  background: #fff;
+  box-shadow: 0 1.5rem 4rem rgb(35 51 45 / 12%);
+}
+
+.home-link { color: #52640f; font-weight: 700; text-decoration: none; }
+.home-link:hover { text-decoration: underline; }
+.eyebrow { margin: 2rem 0 0.5rem; color: #65756a; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+h1 { margin: 0; color: #354c32; font-size: clamp(2rem, 8vw, 3.25rem); }
+h2 { color: #354c32; }
+.intro { max-width: 38rem; line-height: 1.6; }
+
+#items { display: grid; gap: 0.65rem; margin: 1rem 0 1.5rem; padding: 0; list-style: none; }
+#items li { overflow: hidden; border-radius: 0.6rem; }
+#items li[data-category="fruit"] { background: lightyellow; }
+#items li[data-category="vegetable"] { background: lightgreen; }
+#items li[data-category="dairy"] { background: lightblue; }
+#items button { width: 100%; min-height: 3rem; padding: 0.75rem 1rem; border: 1px solid #d5dfd3; border-radius: inherit; background: transparent; color: inherit; font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
+#items button:hover { filter: brightness(0.96); }
+button:focus-visible, a:focus-visible { outline: 3px solid #d88a43; outline-offset: 3px; }
+.details { min-height: 8rem; padding: 0.25rem 1.25rem 1rem; border-left: 4px solid #7d8b45; background: #f5f7f2; }
+.details h2 { margin-bottom: 0.5rem; }
+.details p { margin: 0.4rem 0; }
+.reflection { margin-top: 2rem; line-height: 1.55; }
+.reflection dt { margin-top: 1rem; font-weight: 700; }
+.reflection dd { margin: 0.25rem 0 0; color: #52615a; }

@@ -24,11 +24,11 @@
               <legend>Customer information</legend>
               <label>
                 First name
-                <input type="text" name="fname" autocomplete="given-name" required />
+                <input id="fname" type="text" name="fname" autocomplete="given-name" minlength="2" maxlength="60" required />
               </label>
               <label>
                 Last name
-                <input type="text" name="lname" autocomplete="family-name" required />
+                <input id="lname" type="text" name="lname" autocomplete="family-name" minlength="2" maxlength="60" required />
               </label>
             </fieldset>
 
@@ -36,15 +36,15 @@
               <legend>Billing and shipping address</legend>
               <label>
                 Street address
-                <input type="text" name="street" autocomplete="street-address" required />
+                <input id="street" type="text" name="street" autocomplete="street-address" minlength="5" maxlength="120" required />
               </label>
               <label>
                 City
-                <input type="text" name="city" autocomplete="address-level2" required />
+                <input id="city" type="text" name="city" autocomplete="address-level2" minlength="2" maxlength="80" required />
               </label>
               <label>
                 State
-                <input type="text" name="state" autocomplete="address-level1" required />
+                <input id="state" type="text" name="state" autocomplete="address-level1" minlength="2" maxlength="80" required />
               </label>
               <label>
                 ZIP code
@@ -55,6 +55,7 @@
                   autocomplete="postal-code"
                   inputmode="numeric"
                   pattern="[0-9]{5}(-[0-9]{4})?"
+                  title="Enter a 5-digit ZIP code, optionally followed by a 4-digit extension."
                   required
                 />
               </label>
@@ -69,7 +70,10 @@
                   name="cardNumber"
                   autocomplete="cc-number"
                   inputmode="numeric"
-                  pattern="[0-9]{13,19}"
+                  minlength="13"
+                  maxlength="23"
+                  pattern="[0-9 -]{13,23}"
+                  title="Enter a 13–19 digit card number. Spaces and hyphens are allowed."
                   required
                 />
               </label>
@@ -81,6 +85,7 @@
                   autocomplete="cc-exp"
                   placeholder="MM/YY"
                   pattern="(0[1-9]|1[0-2])/[0-9]{2,4}"
+                  title="Enter a valid future expiration date as MM/YY or MM/YYYY."
                   required
                 />
               </label>
@@ -92,6 +97,7 @@
                   autocomplete="cc-csc"
                   inputmode="numeric"
                   pattern="[0-9]{3,4}"
+                  title="Enter the 3- or 4-digit security code."
                   required
                 />
               </label>

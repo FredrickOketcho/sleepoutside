@@ -19,11 +19,23 @@ async function convertToJson(response) {
 }
 
 function normalizeProduct(product) {
+  const imageSizes = [
+    ['PrimarySmall', 80],
+    ['PrimaryMedium', 160],
+    ['PrimaryLarge', 320],
+    ['PrimaryExtraLarge', 600],
+  ];
+  const imageSrcSet = imageSizes
+    .filter(([key]) => product.Images?.[key])
+    .map(([key, width]) => `${product.Images[key]} ${width}w`)
+    .join(', ');
+
   return {
     ...product,
+    ImageSrcSet: imageSrcSet,
     Image:
-      product.Images?.PrimaryMedium ??
       product.Images?.PrimarySmall ??
+      product.Images?.PrimaryMedium ??
       product.Image,
   };
 }
@@ -96,6 +108,16 @@ export default class ExternalServices {
 
   checkout(payload) {
     return fetch(`${API_BASE}/checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    }).then(convertToJson);
+  }
+
+  createUser(payload) {
+    return fetch(`${API_BASE}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

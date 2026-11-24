@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Learn to read HTML data attributes with JavaScript and style them with CSS." />
+    <title>HTML Data Attributes | SleepOutside</title>
+    <link rel="stylesheet" href="css/datasets.css" />
+    <script type="module" src="js/datasets.js"></script>
+  </head>
+  <body>
+    <main class="lesson">
+      <a class="home-link" href="index.html">SleepOutside</a>
+      <p class="eyebrow">JavaScript and HTML activity</p>
+      <h1>Explore data attributes</h1>
+      <p class="intro">Each item stores structured details in <code>data-*</code> attributes. Select an item to see those values read through JavaScript's <code>dataset</code> property.</p>
+
+      <section aria-labelledby="items-heading">
+        <h2 id="items-heading">Items</h2>
+        <ul id="items">
+          <li data-name="banana" data-category="fruit" data-color="yellow"><button type="button">Banana</button></li>
+          <li data-name="carrot" data-category="vegetable" data-color="orange"><button type="button">Carrot</button></li>
+          <li data-name="blueberry" data-category="fruit" data-color="blue"><button type="button">Blueberry</button></li>
+        </ul>
+      </section>
+
+      <section id="details" class="details" aria-live="polite" aria-atomic="true" aria-labelledby="details-heading">
+        <h2 id="details-heading">Item details</h2>
+        <p>Select an item to display its details.</p>
+      </section>
+
+      <section class="reflection" aria-labelledby="reflection-heading">
+        <h2 id="reflection-heading">Think about it</h2>
+        <dl>
+          <dt>Why use data attributes?</dt>
+          <dd>They keep small pieces of element-specific data alongside the HTML element, where JavaScript and CSS can access them.</dd>
+          <dt>How do they support accessibility?</dt>
+          <dd>They do not add accessibility by themselves. Pair them with semantic HTML, keyboard-operable controls, and clear status updates, as this example does.</dd>
+          <dt>When are they a good fit?</dt>
+          <dd>Use them for small client-side values tied to an element, such as an item ID or category. Use application state or a data service for larger or frequently changing records.</dd>
+          <dt>How can data be kept valid and secure?</dt>
+          <dd>Validate values against expected formats, treat browser-provided data as untrusted, and avoid inserting it as HTML. This example renders values as text.</dd>
+        </dl>
+      </section>
+    </main>
+  </body>
+</html>

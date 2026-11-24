@@ -1,7 +1,16 @@
-import { renderListWithTemplate } from './utils.mjs';
+import { renderListWithTemplate, setBreadcrumb } from './utils.mjs';
 
-function productCardTemplate(product) {
-  const productUrl = `/product_pages/index.html?product=${encodeURIComponent(product.Id)}`;
+const categoryLabels = {
+  tents: 'Tents',
+  backpacks: 'Backpacks',
+  'sleeping-bags': 'Sleeping Bags',
+  hammocks: 'Hammocks',
+};
+
+function productCardTemplate(product, category) {
+  const query = new URLSearchParams({ product: product.Id });
+  if (category) query.set('category', category);
+  const productUrl = `/product_pages/index.html?${query.toString()}`;
   const finalPrice = Number(product.FinalPrice);
   const suggestedRetailPrice = Number(product.SuggestedRetailPrice);
   const hasDiscount =
@@ -15,7 +24,11 @@ function productCardTemplate(product) {
 
   return `<li class="product-card">
     <a href="${productUrl}">
-      <img src="${product.Image}" alt="${product.Name}" />
+      <img
+        src="${product.Image}"
+        ${product.ImageSrcSet ? `srcset="${product.ImageSrcSet}" sizes="(max-width: 520px) 45vw, (max-width: 900px) 30vw, 240px"` : ''}
+        alt="${product.Name}"
+      />
       <h3 class="card__brand">${product.Brand.Name}</h3>
       <h2 class="card__name">${product.NameWithoutBrand}</h2>
       <p class="product-card__price">$${finalPrice.toFixed(2)}</p>
@@ -46,6 +59,12 @@ export default class ProductList {
         : products;
 
       this.renderList(displayProducts);
+      if (this.category && categoryLabels[this.category]) {
+        const label = categoryLabels[this.category];
+        setBreadcrumb(`${label} -> (${displayProducts.length} items)`);
+      } else if (this.searchQuery) {
+        setBreadcrumb(`Search results -> (${displayProducts.length} items)`);
+      }
       this.statusElement.textContent = displayProducts.length
         ? ''
         : this.searchQuery
@@ -65,7 +84,7 @@ export default class ProductList {
 
   renderList(list) {
     renderListWithTemplate(
-      productCardTemplate,
+      (product) => productCardTemplate(product, this.category),
       this.listElement,
       list,
       'afterbegin',

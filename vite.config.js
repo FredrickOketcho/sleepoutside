@@ -10,6 +10,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'src/index.html'),
         countdown: resolve(__dirname, 'src/countdown.html'),
+        datasets: resolve(__dirname, 'src/datasets.html'),
+        signup: resolve(__dirname, 'src/signup/index.html'),
         cart: resolve(__dirname, 'src/cart/index.html'),
         checkout: resolve(__dirname, 'src/checkout/index.html'),
         success: resolve(__dirname, 'src/checkout/success.html'),

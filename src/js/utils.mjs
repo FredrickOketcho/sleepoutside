@@ -44,12 +44,29 @@ export async function loadHeaderFooter() {
     throw new Error('Header or footer placeholder is missing from this page.');
   }
 
+  let breadcrumb = qs('#site-breadcrumb');
+  if (!breadcrumb) {
+    breadcrumb = document.createElement('nav');
+    breadcrumb.id = 'site-breadcrumb';
+    breadcrumb.className = 'site-breadcrumb';
+    breadcrumb.setAttribute('aria-label', 'Breadcrumb');
+    breadcrumb.hidden = true;
+    headerElement.insertAdjacentElement('afterend', breadcrumb);
+  }
+
   const [headerTemplate, footerTemplate] = await Promise.all([
     loadTemplate('/partials/header.html'),
     loadTemplate('/partials/footer.html'),
   ]);
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+}
+
+export function setBreadcrumb(label) {
+  const breadcrumb = qs('#site-breadcrumb');
+  if (!breadcrumb || !label) return;
+  breadcrumb.textContent = label;
+  breadcrumb.hidden = false;
 }
 
 // or a more concise version if you are into that sort of thing:
